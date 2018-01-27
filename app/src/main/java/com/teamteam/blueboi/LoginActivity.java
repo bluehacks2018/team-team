@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(LoginActivity.this, HomeActivityWorker.class);
                 startActivity(i);
+                finish();
             }
         });
     }
