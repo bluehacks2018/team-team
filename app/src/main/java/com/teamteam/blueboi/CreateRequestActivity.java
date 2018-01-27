@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 
     TextView tv_date, tv_time;
     ImageButton button_datetime;
+    Button btn_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,16 @@ public class CreateRequestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 datePicker();
+            }
+        });
+
+        btn_add = (Button) findViewById(R.id.btn_add);
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SkillsetDialog sd = new SkillsetDialog();
+                sd.show(getSupportFragmentManager(), "");
             }
         });
     }
@@ -87,7 +99,7 @@ public class CreateRequestActivity extends AppCompatActivity {
                         start.set(Calendar.MINUTE, minute);
                         timePickerTo();
                     }
-                }, start.get(Calendar.HOUR), start.get(Calendar.DAY_OF_MONTH), false);
+                }, start.get(Calendar.HOUR), start.get(Calendar.MINUTE), false);
         timePickerDialog.show();
     }
 
@@ -103,7 +115,7 @@ public class CreateRequestActivity extends AppCompatActivity {
                         end.set(Calendar.MINUTE, minute);
                         tv_time.setText(sdfTime.format(start.getTime()) + " - " + sdfTime.format(end.getTime()));
                     }
-                }, end.get(Calendar.HOUR), end.get(Calendar.DAY_OF_MONTH), false);
+                }, end.get(Calendar.HOUR), end.get(Calendar.MINUTE), false);
         timePickerDialog.show();
     }
 }
