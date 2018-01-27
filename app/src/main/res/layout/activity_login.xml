@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="#139340"
+    android:focusableInTouchMode="true"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.teamteam.blueboi.LoginActivity">
+
+    <!-- Login progress: currently hidden, use when needed -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/username_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blueboi"
+                android:textSize="25dp"
+                android:textColor="#FFFFFF"
+                android:padding="20dp"
+                android:layout_marginBottom="40dp"/>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_close_envelope" />
+
+
+                <EditText
+                    android:paddingLeft="10dp"
+                    android:id="@+id/email"
+                    android:layout_width="250dp"
+                    android:layout_height="39dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    android:textCursorDrawable="@color/colorWhite"
+                    android:textColorHighlight="#FFFFFF"
+                    android:hint="@string/prompt_email"
+                    android:backgroundTint="@color/colorWhite"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_lock"/>
+
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="250dp"
+                    android:layout_height="39dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    android:textColorHighlight="#FFFFFF"
+                    android:hint="@string/prompt_password"
+                    android:textCursorDrawable="@color/colorWhite"
+                    android:imeActionId="@+id/login"
+                    android:backgroundTint="@color/colorWhite"
+                    android:imeActionLabel="@string/action_log_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/username_log_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textColor="#139340"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_log_in"
+                android:background="#FFFFFF"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
