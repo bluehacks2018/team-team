@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private Toolbar toolbar;
-    public int pageCount = 2;
+    private int pageCount = 2;
     private int user = 1;
     private TabLayout tabLayout;
     private int[] tabIcons;
