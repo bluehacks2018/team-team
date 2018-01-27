@@ -124,7 +124,7 @@ public class HomeActivityWorker extends AppCompatActivity {
                 R.drawable.ic_calendar_white,
                 R.drawable.ic_calendar_darkgreen,
                 R.drawable.ic_calendarplus_white,
-                R.drawable.ic_calendarplus_darkgreen,
+                R.drawable.ic_calendar_white,
                 R.drawable.ic_history_white,
                 R.drawable.ic_history_darkgreen
         };
