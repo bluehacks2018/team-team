@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
                 dspEditor.putString("login", "yes");
                 dspEditor.commit();
 
-                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent i = new Intent(LoginActivity.this, HomeActivityWorker.class);
                 startActivity(i);
             }
         });
