@@ -123,8 +123,8 @@ public class HomeActivityWorker extends AppCompatActivity {
         tabIcons = new int[]{
                 R.drawable.ic_calendar_white,
                 R.drawable.ic_calendar_darkgreen,
-                R.drawable.ic_calendarplus_white,
-                R.drawable.ic_calendar_white,
+                R.drawable.ic_list_white,
+                R.drawable.ic_list_darkgreen,
                 R.drawable.ic_history_white,
                 R.drawable.ic_history_darkgreen
         };
