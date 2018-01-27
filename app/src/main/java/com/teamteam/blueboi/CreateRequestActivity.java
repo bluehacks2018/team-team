@@ -1,5 +1,6 @@
 package com.teamteam.blueboi;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -13,16 +14,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class CreateRequestActivity extends AppCompatActivity {
+    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd");
+    SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mma");
+    Calendar start, end;
 
-    String date_time = "";
-    int mYear;
-    int mMonth;
-    int mDay;
-
-    int mHour;
-    int mMinute;
-
-    TextView tv_datetime;
+    TextView tv_date, tv_time;
     ImageButton button_datetime;
 
     @Override
@@ -30,16 +26,21 @@ public class CreateRequestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_request);
 
-        String date_time = "";
-        String timeFrom = "";
-        int mYear;
-        int mMonth;
-        int mDay;
+        start = Calendar.getInstance();
+        start.set(Calendar.MINUTE, 0);
+        start.add(Calendar.DAY_OF_MONTH, 1);
+        end = Calendar.getInstance();
+        end.set(Calendar.MINUTE, 0);
+        end.set(Calendar.DAY_OF_MONTH, start.get(Calendar.DAY_OF_MONTH));
+        end.add(Calendar.HOUR, start.get(Calendar.HOUR) + 1);
 
-        int mHour;
-        int mMinute;
+        tv_date = (TextView) findViewById(R.id.tv_date);
+        tv_time = (TextView) findViewById(R.id.tv_time);
 
-        tv_datetime = (TextView) findViewById(R.id.tv_datetime);
+        tv_date.setText("" + sdfDate.format(start.getTime()).toString());
+        tv_time.setText("" + sdfTime.format(start.getTime()).toString() + " - " + sdfTime.format(end.getTime()).toString());
+
+
         button_datetime = (ImageButton) findViewById(R.id.button_datetime);
 
         button_datetime.setOnClickListener(new View.OnClickListener() {
@@ -53,10 +54,6 @@ public class CreateRequestActivity extends AppCompatActivity {
     private void datePicker(){
 
         // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
@@ -64,19 +61,21 @@ public class CreateRequestActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
-                        date_time = (monthOfYear + 1) + "/" + dayOfMonth + "/" + year;
+                        start.set(Calendar.YEAR, year);
+                        start.set(Calendar.MONTH, monthOfYear);
+                        start.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        end.set(Calendar.YEAR, year);
+                        end.set(Calendar.MONTH, monthOfYear);
+                        end.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        tv_date.setText(sdfDate.format(start.getTime()));
                         //*************Call Time Picker Here ********************
                         timePickerFrom();
                     }
-                }, mYear, mMonth, mDay);
+                }, start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
 
     private void timePickerFrom(){
-        // Get Current Time
-        final Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
 
         // Launch Time Picker Dialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
@@ -84,13 +83,27 @@ public class CreateRequestActivity extends AppCompatActivity {
 
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                        mHour = hourOfDay;
-                        mMinute = minute;
-
-                        tv_datetime.setText(date_time+" "+hourOfDay + ":" + minute);
+                        start.set(Calendar.HOUR, hourOfDay);
+                        start.set(Calendar.MINUTE, minute);
+                        timePickerTo();
                     }
-                }, mHour, mMinute, false);
+                }, start.get(Calendar.HOUR), start.get(Calendar.DAY_OF_MONTH), false);
+        timePickerDialog.show();
+    }
+
+    private void timePickerTo(){
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        end.set(Calendar.HOUR, hourOfDay);
+                        end.set(Calendar.MINUTE, minute);
+                        tv_time.setText(sdfTime.format(start.getTime()) + " - " + sdfTime.format(end.getTime()));
+                    }
+                }, end.get(Calendar.HOUR), end.get(Calendar.DAY_OF_MONTH), false);
         timePickerDialog.show();
     }
 }
