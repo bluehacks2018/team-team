@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivityWorker extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private Toolbar toolbar;
-    private int pageCount = 2;
+    private int pageCount = 3;
     private TabLayout tabLayout;
     private int[] tabIcons;
     private String[] tabTitles;
@@ -113,12 +113,15 @@ public class HomeActivity extends AppCompatActivity {
     public void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[5]);
     }
 
     public void setupIcons() {
         tabIcons = new int[]{
                 R.drawable.ic_calendar_white,
                 R.drawable.ic_calendar_darkgreen,
+                R.drawable.ic_calendarplus_white,
+                R.drawable.ic_calendarplus_darkgreen,
                 R.drawable.ic_history_white,
                 R.drawable.ic_history_darkgreen
         };
@@ -126,6 +129,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void setupTabTitles() {
         tabTitles = new String[]{
+                "Jobs",
                 "Requests",
                 "History"
         };
@@ -195,6 +199,9 @@ public class HomeActivity extends AppCompatActivity {
                     rootView = inflater.inflate(R.layout.fragment_home, container, false);
                     break;
                 case 2:
+                    rootView = inflater.inflate(R.layout.fragment_home_requests, container, false);
+                    break;
+                case 3:
                     rootView = inflater.inflate(R.layout.fragment_home_history, container, false);
                     break;
             }
