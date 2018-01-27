@@ -27,6 +27,10 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+
 public class HomeActivity extends AppCompatActivity {
 
     /**
@@ -213,16 +217,18 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         public void initializeRV(int number) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
             switch (number) {
                 case 1:
                     /* TODO */
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
-                    FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter
-                            = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.list_item_chat,
-                            PostViewHolder.class, databaseReference) {
+                    FirebaseRecyclerAdapter<Request, HomeViewHolderUser> firebaseRecyclerAdapter
+                            = new FirebaseRecyclerAdapter<Request, HomeViewHolderUser>(Request.class, R.layout.user_home_view,
+                            Request.class, databaseReference) {
                         @Override
-                        protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
+                        protected void populateViewHolder(HomeViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
+                            //edit attributes
                             viewHolder.tvUsername.setText(model.getUsername());
                             viewHolder.tvPost.setText(model.getPost());
 
@@ -232,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
                             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent i = new Intent(getBaseContext(), ViewPostActivity.class);
+                                    Intent i = new Intent(rootView.getContext(), ViewPostActivity.class);
                                     String uid = v.getTag().toString();
                                     i.putExtra("uid", uid);
                                     startActivity(i);
