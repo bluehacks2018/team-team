@@ -23,6 +23,9 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class HomeActivityWorker extends AppCompatActivity {
 
     /**
@@ -45,7 +48,7 @@ public class HomeActivityWorker extends AppCompatActivity {
     private int[] tabIcons;
     private String[] tabTitles;
     private MenuItem searchItem;
-
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("posts");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,9 +209,14 @@ public class HomeActivityWorker extends AppCompatActivity {
                     break;
             }
 
+            initializeRV(ARG_SECTION_NUMBER);
 //            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
+        }
+
+        public void initializeRV(String number) {
+
         }
     }
 
