@@ -199,11 +199,11 @@ public class HomeActivity extends AppCompatActivity {
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_home, container, false);
-                    initializeRV(getArguments().getInt(ARG_SECTION_NUMBER);
+                    //initializeRV(getArguments().getInt(ARG_SECTION_NUMBER));
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_home_history, container, false);
-                    initializeRV(getArguments().getInt(ARG_SECTION_NUMBER);
+                    //initializeRV(getArguments().getInt(ARG_SECTION_NUMBER));
                     break;
             }
 
@@ -217,31 +217,7 @@ public class HomeActivity extends AppCompatActivity {
                 case 1:
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
 
-                    FirebaseRecyclerAdapter<Post, PostViewHolder> firebaseRecyclerAdapter
-                            = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.list_item_chat,
-                            PostViewHolder.class, databaseReference) {
-                        @Override
-                        protected void populateViewHolder(PostViewHolder viewHolder, Post model, int position) {
-                            // onBindViewHolder >> set content to views
-                            viewHolder.tvUsername.setText(model.getUsername());
-                            viewHolder.tvPost.setText(model.getPost());
 
-                            String uid = getRef(position).getKey();
-                            viewHolder.itemView.setTag(uid);
-
-                            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(getBaseContext(), ViewPostActivity.class);
-                                    String uid = v.getTag().toString();
-                                    i.putExtra("uid", uid);
-                                    startActivity(i);
-                                }
-                            });
-                        }
-                    };
-
-                    rvRequests.setAdapter(firebaseRecyclerAdapter);
                     rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                     break;
                 case 2:
