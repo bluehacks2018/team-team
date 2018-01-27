@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".HomeActivity"
+        <activity
+            android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -30,6 +31,10 @@
             android:label="@string/title_activity_create_request"/>
         <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RequestInfoActivity"></activity>
+        <activity
+            android:name=".HomeActivityWorker"
+            android:label="@string/title_activity_home_worker"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
