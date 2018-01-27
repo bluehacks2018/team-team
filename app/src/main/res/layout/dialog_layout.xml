@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cb_electrical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Electrical"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_mechanic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mechanic"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_plumbing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plumbing"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_carpentry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Carpentry"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_housekeeping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Housekeeping"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_caregiving"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Caregiving"
+                android:textSize="20dp"
+                android:padding="20dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
