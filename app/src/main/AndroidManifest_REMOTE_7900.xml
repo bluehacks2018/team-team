@@ -24,14 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
-        <activity
-            android:name=".CreateRequestActivity"
-            android:label="@string/title_activity_create_request"/>
-=======
         <activity android:name=".LoginActivity" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CreateRequestActivity" />
->>>>>>> Stashed changes
         <activity android:name=".RequestInfoActivity"></activity>
     </application>
 

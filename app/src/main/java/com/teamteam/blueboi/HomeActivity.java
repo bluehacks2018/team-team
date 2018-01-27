@@ -1,6 +1,8 @@
 package com.teamteam.blueboi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.SearchView;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -42,60 +45,69 @@ public class HomeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private int[] tabIcons;
     private String[] tabTitles;
+    private MenuItem searchItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Current Requests");
-        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        if (!dsp.contains("login")) {
+            Intent i = new Intent(getBaseContext(), LoginActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("Current Requests");
+            setSupportActionBar(toolbar);
+            // Create the adapter that will return a fragment for each of the three
+            // primary sections of the activity.
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+            // Set up the ViewPager with the sections adapter.
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(mViewPager);
 
-        setupIcons(user);
-        setupTabIcons(user);
-        setupTabTitles(user);
+            setupIcons(user);
+            setupTabIcons(user);
+            setupTabTitles(user);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setIcon(tabIcons[tab.getPosition() * 2]);
-                setSupportActionBar(toolbar);
-                getSupportActionBar().setTitle(tabTitles[tab.getPosition()]);
-            }
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    tab.setIcon(tabIcons[tab.getPosition() * 2]);
+                    setSupportActionBar(toolbar);
+                    getSupportActionBar().setTitle(tabTitles[tab.getPosition()]);
+                }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setIcon(tabIcons[tab.getPosition() * 2 + 1]);
-            }
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    tab.setIcon(tabIcons[tab.getPosition() * 2 + 1]);
+                }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+                }
+            });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), CreateRequestActivity.class);
-                startActivity(i);
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getBaseContext(), CreateRequestActivity.class);
+                    startActivity(i);
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-            }
-        });
+                }
+            });
+        }
 
     }
 
@@ -144,7 +156,6 @@ public class HomeActivity extends AppCompatActivity {
             };
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -157,14 +168,22 @@ public class HomeActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.logout:
+                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor dspEditor = dsp.edit();
+                dspEditor.remove("logout");
+                dspEditor.commit();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     /**
@@ -238,6 +257,13 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return null;
+        }
+    }
+
+    private void setItemsVisibility(Menu menu, MenuItem exception, boolean visible) {
+        for (int i=0; i<menu.size(); ++i) {
+            MenuItem item = menu.getItem(i);
+            if (item != exception) item.setVisible(visible);
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.teamteam.blueboi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences dsp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor dspEditor = dsp.edit();
+                dspEditor.putString("login", "yes");
+                dspEditor.commit();
+
                 Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(i);
             }

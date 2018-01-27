@@ -67,8 +67,10 @@
                     android:layout_height="39dp"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF"
+                    android:textCursorDrawable="@color/colorWhite"
                     android:textColorHighlight="#FFFFFF"
                     android:hint="@string/prompt_email"
+                    android:backgroundTint="@color/colorWhite"
                     android:maxLines="1"/>
             </LinearLayout>
 
@@ -91,7 +93,9 @@
                     android:textColorHint="#FFFFFF"
                     android:textColorHighlight="#FFFFFF"
                     android:hint="@string/prompt_password"
+                    android:textCursorDrawable="@color/colorWhite"
                     android:imeActionId="@+id/login"
+                    android:backgroundTint="@color/colorWhite"
                     android:imeActionLabel="@string/action_log_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
