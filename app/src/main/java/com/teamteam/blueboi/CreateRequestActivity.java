@@ -1,32 +1,43 @@
 package com.teamteam.blueboi;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class CreateRequestActivity extends AppCompatActivity {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mma");
     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy/MM/dd");
     SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mma");
     Calendar start, end;
-
+    EditText et_title, et_description;
     TextView tv_date, tv_time;
     ImageButton button_datetime;
-    Button btn_add;
+    Button btn_add, btn_submit;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_request);
+
+        et_title = (EditText) findViewById(R.id.et_title);
+        et_description = (EditText) findViewById(R.id.et_description);
 
         start = Calendar.getInstance();
         start.set(Calendar.MINUTE, 0);
@@ -53,12 +64,29 @@ public class CreateRequestActivity extends AppCompatActivity {
         });
 
         btn_add = (Button) findViewById(R.id.btn_add);
+        btn_submit = (Button) findViewById(R.id.button_submit);
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SkillsetDialog sd = new SkillsetDialog();
                 sd.show(getSupportFragmentManager(), "");
+            }
+        });
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> tags = new ArrayList<String>();
+                tags.add("Electrician");
+                tags.add("Plumber");
+                Request r = new Request(et_title.getText().toString(), et_description.getText().toString(), sdf.format(start.getTime()), sdf.format(end.getTime()), tags, null);
+
+                String uid = databaseReference.push().getKey();
+                databaseReference.child(uid).setValue(r);
+
+                Intent i = new Intent(CreateRequestActivity.this, HomeActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }

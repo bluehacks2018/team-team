@@ -27,6 +27,11 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     /**
@@ -50,6 +55,8 @@ public class HomeActivity extends AppCompatActivity {
     private String[] tabTitles;
     private MenuItem searchItem;
 
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    ArrayList<Request> requestList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
