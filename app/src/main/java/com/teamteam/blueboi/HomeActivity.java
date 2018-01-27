@@ -1,5 +1,6 @@
 package com.teamteam.blueboi;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,14 +36,21 @@ public class HomeActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private Toolbar toolbar;
     public int pageCount = 2;
+    private int user = 1;
+    private TabLayout tabLayout;
+    private int[] tabIcons;
+    private String[] tabTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Current Requests");
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -52,20 +60,90 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        setupIcons(user);
+        setupTabIcons(user);
+        setupTabTitles(user);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.setIcon(tabIcons[tab.getPosition() * 2]);
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle(tabTitles[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(tabIcons[tab.getPosition() * 2 + 1]);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(getBaseContext(), CreateRequestActivity.class);
+                startActivity(i);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
     }
 
+    public void setupTabIcons(int user) {
+        if (user == 1) {
+            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+            tabLayout.getTabAt(1).setIcon(tabIcons[3]);
+        } else {
+            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+            tabLayout.getTabAt(1).setIcon(tabIcons[3]);
+            tabLayout.getTabAt(2).setIcon(tabIcons[5]);
+        }
+    }
+
+    public void setupIcons(int user) {
+        if (user == 1) {
+            tabIcons = new int[]{
+                    R.drawable.ic_calendar_white,
+                    R.drawable.ic_calendar_darkgreen,
+                    R.drawable.ic_history_white,
+                    R.drawable.ic_history_darkgreen
+            };
+        } else {
+            tabIcons = new int[]{
+                    R.drawable.ic_calendar_white,
+                    R.drawable.ic_calendar_darkgreen,
+                    R.drawable.ic_calendarplus_white,
+                    R.drawable.ic_calendarplus_darkgreen,
+                    R.drawable.ic_history_white,
+                    R.drawable.ic_history_darkgreen
+            };
+        }
+    }
+
+    public void setupTabTitles(int user) {
+        if (user == 1) {
+            tabTitles = new String[]{
+                    "Requests",
+                    "History"
+            };
+        } else {
+            tabTitles = new String[]{
+                    "Jobs",
+                    "Requests",
+                    "History"
+            };
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -159,12 +237,6 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Current Request";
-                case 1:
-                    return "History";
-            }
             return null;
         }
     }
