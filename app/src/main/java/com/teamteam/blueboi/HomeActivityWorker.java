@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -48,7 +51,7 @@ public class HomeActivityWorker extends AppCompatActivity {
     private int[] tabIcons;
     private String[] tabTitles;
     private MenuItem searchItem;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("posts");
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +179,8 @@ public class HomeActivityWorker extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private RecyclerView rvRequests;
+        private View rootView;
 
         public PlaceholderFragment() {
         }
@@ -196,27 +201,146 @@ public class HomeActivityWorker extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             // TODO set values for recycler view
-            View rootView = null;
+            rootView = null;
             switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_home, container, false);
+                    initializeRV(1);
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_home_requests, container, false);
+                    initializeRV(2);
                     break;
                 case 3:
                     rootView = inflater.inflate(R.layout.fragment_home_history, container, false);
+                    initializeRV(3);
                     break;
             }
 
-            initializeRV(ARG_SECTION_NUMBER);
+
 //            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
 
-        public void initializeRV(String number) {
+        public void initializeRV(int number) {
+            switch(number) {
+                case 1: //current
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
+                    rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
+                    FirebaseRecyclerAdapter<Request, HomeViewHolderWorker> firebaseRecyclerAdapter
+                            = new FirebaseRecyclerAdapter<Request, HomeViewHolderWorker>(Request.class, R.layout.worker_home_view,
+                            HomeViewHolderWorker.class, databaseReference) {
+                        @Override
+                        protected void populateViewHolder(HomeViewHolderWorker viewHolder, Request model, int position) {
+                            // onBindViewHolder >> set content to views
+                            //edit attributes
 
+
+                                viewHolder.tvTitle.setText(model.getTitle());
+                                viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                                viewHolder.tvLocation.setText(model.getDescription());
+                                String uid = getRef(position).getKey();
+                                viewHolder.itemView.setTag(uid);
+
+
+                                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                        String uid = v.getTag().toString();
+                                        i.putExtra("uid", uid);
+                                        startActivity(i);
+                                    }
+                                });
+                            }
+
+
+                    };
+
+                    rvRequests.setAdapter(firebaseRecyclerAdapter);
+                    rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+                    break;
+                case 2: //requests
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
+                    rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_requests);
+                    FirebaseRecyclerAdapter<Request, RequestsViewHolderWorker> firebaseRecyclerAdapter2
+                            = new FirebaseRecyclerAdapter<Request, RequestsViewHolderWorker>(Request.class, R.layout.worker_requests_view,
+                            RequestsViewHolderWorker.class, databaseReference) {
+
+                        @Override
+                        protected void populateViewHolder(RequestsViewHolderWorker viewHolder, Request model, int position) {
+                            // onBindViewHolder >> set content to views
+                            //edit attributes
+
+
+                                viewHolder.tvTitle.setText(model.getTitle());
+                                viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                                viewHolder.tvLocation.setText(model.getDescription());
+                                String uid = getRef(position).getKey();
+                                viewHolder.itemView.setTag(uid);
+
+
+
+                                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                        String uid = v.getTag().toString();
+                                        i.putExtra("uid", uid);
+                                        startActivity(i);
+                                    }
+                                });
+                            }
+
+                    };
+
+                    rvRequests.setAdapter(firebaseRecyclerAdapter2);
+                    rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+                    break;
+                case 3: //history
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
+                    rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_history);
+                    FirebaseRecyclerAdapter<Request, HistoryViewHolderWorker> firebaseRecyclerAdapter3
+                            = new FirebaseRecyclerAdapter<Request, HistoryViewHolderWorker>(Request.class, R.layout.worker_history_view,
+                            HistoryViewHolderWorker.class, databaseReference) {
+
+                        @Override
+                        protected void populateViewHolder(HistoryViewHolderWorker viewHolder, Request model, int position) {
+                            // onBindViewHolder >> set content to views
+                            //edit attributes
+
+
+                            viewHolder.tvTitle.setText(model.getTitle());
+                            viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                            viewHolder.ivStar1.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar2.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar3.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar4.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar5.setImageResource(R.drawable.ic_rate_star_button);
+
+                            String uid = getRef(position).getKey();
+                            viewHolder.itemView.setTag(uid);
+
+
+
+                            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                    String uid = v.getTag().toString();
+                                    i.putExtra("uid", uid);
+                                    startActivity(i);
+                                }
+                            });
+                        }
+
+                    };
+
+                    rvRequests.setAdapter(firebaseRecyclerAdapter3);
+                    rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+                    break;
+            }
         }
     }
 

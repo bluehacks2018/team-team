@@ -260,28 +260,31 @@ public class HomeActivity extends AppCompatActivity {
                         protected void populateViewHolder(HistoryViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
                             //edit attributes
-                            viewHolder.tvTitle.setText(model.getTitle());
-                            viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
-                            viewHolder.tvWorkerName.setText(model.getWorker().getUsername());
-                            viewHolder.ivStar1.setImageResource(R.drawable.ic_rate_star_button);
-                            viewHolder.ivStar2.setImageResource(R.drawable.ic_rate_star_button);
-                            viewHolder.ivStar3.setImageResource(R.drawable.ic_rate_star_button);
-                            viewHolder.ivStar4.setImageResource(R.drawable.ic_rate_star_button);
-                            viewHolder.ivStar5.setImageResource(R.drawable.ic_rate_star_button);
 
-                            String uid = getRef(position).getKey();
-                            viewHolder.itemView.setTag(uid);
+                            if(model.getWorker() != null) {
+                                viewHolder.tvTitle.setText(model.getTitle());
+                                viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                                //viewHolder.tvWorkerName.setText(model.getWorker().getUsername());
+                                viewHolder.ivStar1.setImageResource(R.drawable.ic_rate_star_button);
+                                viewHolder.ivStar2.setImageResource(R.drawable.ic_rate_star_button);
+                                viewHolder.ivStar3.setImageResource(R.drawable.ic_rate_star_button);
+                                viewHolder.ivStar4.setImageResource(R.drawable.ic_rate_star_button);
+                                viewHolder.ivStar5.setImageResource(R.drawable.ic_rate_star_button);
+
+                                String uid = getRef(position).getKey();
+                                viewHolder.itemView.setTag(uid);
 
 
-                            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
-                                    String uid = v.getTag().toString();
-                                    i.putExtra("uid", uid);
-                                    startActivity(i);
-                                }
-                            });
+                                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                        String uid = v.getTag().toString();
+                                        i.putExtra("uid", uid);
+                                        startActivity(i);
+                                    }
+                                });
+                            }
                         }
                     };
 

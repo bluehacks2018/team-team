@@ -25,7 +25,7 @@ public class Request {
     }
 
     public Request(){
-        
+        this.worker = null;
     }
 
     public String getUid() {
@@ -82,9 +82,5 @@ public class Request {
 
     public void setWorker(Worker worker) {
         this.worker = worker;
-    }
-
-    public Request() {
-
     }
 }
