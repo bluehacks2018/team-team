@@ -21,5 +21,8 @@ public class RequestsViewHolderWorker extends RecyclerView.ViewHolder {
     public RequestsViewHolderWorker (View itemView) {
         super(itemView);
         // insert find vie by ids here
+        tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+        tvDatetime = (TextView) itemView.findViewById(R.id.tv_datetime);
+        tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
     }
 }

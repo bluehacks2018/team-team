@@ -20,6 +20,10 @@ public class Worker {
         this.skillset = skillset;
     }
 
+    public Worker(){
+
+    }
+
     public String getUid() {
         return uid;
     }

@@ -24,6 +24,10 @@ public class Request {
         this.worker = worker;
     }
 
+    public Request(){
+        
+    }
+
     public String getUid() {
         return uid;
     }
