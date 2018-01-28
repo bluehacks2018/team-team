@@ -2,6 +2,7 @@ package com.teamteam.blueboi;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -224,7 +225,7 @@ public class HomeActivity extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
                     FirebaseRecyclerAdapter<Request, HomeViewHolderUser> firebaseRecyclerAdapter
                             = new FirebaseRecyclerAdapter<Request, HomeViewHolderUser>(Request.class, R.layout.user_home_view,
-                            HomeViewHolderUser.class, databaseReference) {
+                            HomeViewHolderUser.class, databaseReference.orderByChild("sector").equalTo("current")) {
                         @Override
                         protected void populateViewHolder(HomeViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
@@ -255,7 +256,7 @@ public class HomeActivity extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_history);
                     FirebaseRecyclerAdapter<Request, HistoryViewHolderUser> firebaseRecyclerAdapter2
                             = new FirebaseRecyclerAdapter<Request, HistoryViewHolderUser>(Request.class, R.layout.user_history_view,
-                            HistoryViewHolderUser.class, databaseReference) {
+                            HistoryViewHolderUser.class, databaseReference.orderByChild("sector").equalTo("history")) {
                         @Override
                         protected void populateViewHolder(HistoryViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
@@ -264,7 +265,7 @@ public class HomeActivity extends AppCompatActivity {
                             if(model.getWorker() != null) {
                                 viewHolder.tvTitle.setText(model.getTitle());
                                 viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
-                                //viewHolder.tvWorkerName.setText(model.getWorker().getUsername());
+                                viewHolder.tvWorkerName.setText(model.getWorker().getUsername());
                                 viewHolder.ivStar1.setImageResource(R.drawable.ic_rate_star_button);
                                 viewHolder.ivStar2.setImageResource(R.drawable.ic_rate_star_button);
                                 viewHolder.ivStar3.setImageResource(R.drawable.ic_rate_star_button);
@@ -284,6 +285,12 @@ public class HomeActivity extends AppCompatActivity {
                                         startActivity(i);
                                     }
                                 });
+                            }
+                            else {
+                                viewHolder.tvTitle.setText(model.getTitle());
+                                viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                                viewHolder.tvWorkerName.setText("No worker assigned.");
+                                viewHolder.tvWorkerName.setTypeface(viewHolder.tvWorkerName.getTypeface(), Typeface.ITALIC);
                             }
                         }
                     };

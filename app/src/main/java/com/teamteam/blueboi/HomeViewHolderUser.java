@@ -13,6 +13,7 @@ public class HomeViewHolderUser extends RecyclerView.ViewHolder {
 
     TextView tvTitle;
     TextView tvDatetime;
+    TextView tvWorkerName;
     ImageView ivStatus;
 
     public HomeViewHolderUser(View itemView) {
@@ -20,6 +21,7 @@ public class HomeViewHolderUser extends RecyclerView.ViewHolder {
         // insert find vie by ids here
         tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
         tvDatetime = (TextView) itemView.findViewById(R.id.tv_datetime);
+        tvWorkerName = (TextView) itemView.findViewById(R.id.tv_workerName);
 
     }
 }
