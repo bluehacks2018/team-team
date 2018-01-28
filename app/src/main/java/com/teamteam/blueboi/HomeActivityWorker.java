@@ -292,7 +292,7 @@ public class HomeActivityWorker extends AppCompatActivity {
                                         r.setStatus("Accepted");
                                         Worker w = new Worker("John Doe", 5.0, 1000, new ArrayList<String>());
                                         r.setWorker(w);
-                                        databaseReference.child("requests").child(uid2).setValue(r);
+                                        databaseReference.child(uid2).setValue(r);
                                     }
                                 });
 
