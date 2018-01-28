@@ -6,7 +6,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:padding="15dp"
+        android:background="@color/colorWhite"
         android:orientation="horizontal">
         
         <ImageView
@@ -23,14 +25,14 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24dp"
+                android:textSize="20dp"
                 android:text="Title"/>
 
             <TextView
                 android:id="@+id/tv_datetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:text="Datetime"/>
         </LinearLayout>
     </LinearLayout>

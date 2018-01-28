@@ -5,34 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.teamteam.blueboi.RequestInfoActivity"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Request Title" />
+    android:orientation="vertical"
+    android:background="@color/colorGreyLighter">
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:text="Description"/>
     <TextView
+        android:layout_marginTop="15dp"
         android:id="@+id/tv_datetime"
         android:layout_width="match_parent"
+        android:background="@color/colorWhite"
         android:layout_height="wrap_content"
         android:text="Date and Time"/>
     <TextView
         android:id="@+id/tv_tags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:text="Tag"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:text="Worker Assigned"/>
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/iv_worker_img"
@@ -40,8 +43,10 @@
             android:layout_height="70dp"
             android:background="@mipmap/ic_launcher_round"/>
         <LinearLayout
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_worker_name"
@@ -59,19 +64,22 @@
                 android:layout_height="wrap_content"
                 android:text="Total jobs completed"/>
         </LinearLayout>
-
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:text="Skillset"/>
     <RelativeLayout
         android:id="@+id/rl_skillset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></RelativeLayout>
     <Button
+        android:layout_marginTop="15dp"
         android:id="@+id/button_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorNo"
+        android:textColor="@color/colorWhite"
         android:text="Cancel"/>
 </LinearLayout>

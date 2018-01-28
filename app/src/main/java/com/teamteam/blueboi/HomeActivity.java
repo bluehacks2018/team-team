@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
                             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                    Intent i = new Intent(rootView.getContext(), RequestInfoActivity.class);
                                     String uid = v.getTag().toString();
                                     i.putExtra("uid", uid);
                                     startActivity(i);
@@ -278,7 +278,7 @@ public class HomeActivity extends AppCompatActivity {
                                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                        Intent i = new Intent(rootView.getContext(), RequestInfoActivity.class);
                                         String uid = v.getTag().toString();
                                         i.putExtra("uid", uid);
                                         startActivity(i);
