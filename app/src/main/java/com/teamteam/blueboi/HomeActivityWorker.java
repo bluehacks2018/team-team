@@ -29,6 +29,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class HomeActivityWorker extends AppCompatActivity {
 
     /**
@@ -51,7 +53,9 @@ public class HomeActivityWorker extends AppCompatActivity {
     private int[] tabIcons;
     private String[] tabTitles;
     private MenuItem searchItem;
-    DatabaseReference databaseReference;
+    public static DatabaseReference databaseReference;
+    public static Request r;
+    public static String uid2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,7 +230,7 @@ public class HomeActivityWorker extends AppCompatActivity {
         public void initializeRV(int number) {
             switch(number) {
                 case 1: //current
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("requests");
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
                     FirebaseRecyclerAdapter<Request, HomeViewHolderWorker> firebaseRecyclerAdapter
                             = new FirebaseRecyclerAdapter<Request, HomeViewHolderWorker>(Request.class, R.layout.worker_home_view,
@@ -279,8 +283,18 @@ public class HomeActivityWorker extends AppCompatActivity {
                                 viewHolder.tvLocation.setText(model.getDescription());
                                 String uid = getRef(position).getKey();
                                 viewHolder.itemView.setTag(uid);
+                                uid2 = uid;
+                                r = model;
 
-
+                                viewHolder.btnAccept.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        r.setStatus("Accepted");
+                                        Worker w = new Worker("John Doe", 5.0, 1000, new ArrayList<String>());
+                                        r.setWorker(w);
+                                        databaseReference.child("requests").child(uid2).setValue(r);
+                                    }
+                                });
 
                                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                     @Override
