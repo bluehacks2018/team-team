@@ -7,6 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -16,44 +18,44 @@
 
             <ImageView
                 android:id="@+id/iv_star1"
-                android:layout_width="5px"
-                android:layout_height="5px" />
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
             <ImageView
                 android:id="@+id/iv_star2"
-                android:layout_width="5px"
-                android:layout_height="5px" />
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
             <ImageView
                 android:id="@+id/iv_star3"
-                android:layout_width="5px"
-                android:layout_height="5px" />
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
             <ImageView
                 android:id="@+id/iv_star4"
-                android:layout_width="5px"
-                android:layout_height="5px" />
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
             <ImageView
                 android:id="@+id/iv_star5"
-                android:layout_width="5px"
-                android:layout_height="5px" />
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
         </LinearLayout>
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:text="Title"/>
 
         <TextView
             android:id="@+id/tv_clientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:text="Client Name"/>
 
         <TextView
             android:id="@+id/tv_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:text="Datetime"/>
     </LinearLayout>
 

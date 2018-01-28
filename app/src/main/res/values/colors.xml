@@ -6,4 +6,6 @@
     <color name="colorMain">#139340</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreenLighter">#54c36d</color>
+    <color name="colorGreyLighter">#e2e2e2</color>
+    <color name="colorNo">#d50000</color>
 </resources>
