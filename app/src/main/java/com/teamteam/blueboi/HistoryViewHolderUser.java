@@ -28,6 +28,6 @@ public class HistoryViewHolderUser extends RecyclerView.ViewHolder {
         ivStar1 = (ImageView) itemView.findViewById(R.id.iv_star1);
         tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
         tvDatetime = (TextView) itemView.findViewById(R.id.tv_datetime);
-        tvWorkerName = (TextView) itemView.findViewById(R.id.tv_worker_name);
+        tvWorkerName = (TextView) itemView.findViewById(R.id.tv_workerName);
     }
 }

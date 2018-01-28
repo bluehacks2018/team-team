@@ -14,14 +14,18 @@ public class Request {
     private String endDate;
     private ArrayList<String> tags;
     private Worker worker;
+    private String status;
+    private String sector;
 
-    public Request(String title, String description, String startDate, String endDate, ArrayList<String> tags, Worker worker) {
+    public Request(String title, String description, String startDate, String endDate, ArrayList<String> tags, Worker worker, String status, String sector) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
         this.worker = worker;
+        this.status = status;
+        this.sector = sector;
     }
 
     public Request(){
