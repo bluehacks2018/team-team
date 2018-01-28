@@ -12,26 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
+        android:textSize="15dp"
         android:text="Description"/>
     <TextView
         android:layout_marginTop="15dp"
         android:id="@+id/tv_datetime"
+        android:textSize="15dp"
         android:layout_width="match_parent"
         android:background="@color/colorWhite"
         android:layout_height="wrap_content"
         android:text="Date and Time"/>
     <TextView
         android:id="@+id/tv_tags"
+        android:textSize="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:text="Tag"/>
     <TextView
         android:layout_width="match_parent"
+        android:textSize="15dp"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:text="Worker Assigned"/>
     <LinearLayout
+        android:id="@+id/worker_info"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,22 +55,26 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_worker_name"
+                android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"/>
             <TextView
                 android:id="@+id/tv_worker_rating"
                 android:layout_width="wrap_content"
+                android:textSize="15dp"
                 android:layout_height="wrap_content"
                 android:text="Rating"/>
             <TextView
                 android:id="@+id/tv_worker_completed"
                 android:layout_width="wrap_content"
+                android:textSize="15dp"
                 android:layout_height="wrap_content"
                 android:text="Total jobs completed"/>
         </LinearLayout>
     </LinearLayout>
     <TextView
+        android:id="@+id/tv_worker_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
