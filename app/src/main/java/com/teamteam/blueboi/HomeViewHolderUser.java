@@ -18,5 +18,8 @@ public class HomeViewHolderUser extends RecyclerView.ViewHolder {
     public HomeViewHolderUser(View itemView) {
         super(itemView);
         // insert find vie by ids here
+        tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+        tvDatetime = (TextView) itemView.findViewById(R.id.tv_datetime);
+
     }
 }

@@ -224,13 +224,13 @@ public class HomeActivity extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
                     FirebaseRecyclerAdapter<Request, HomeViewHolderUser> firebaseRecyclerAdapter
                             = new FirebaseRecyclerAdapter<Request, HomeViewHolderUser>(Request.class, R.layout.user_home_view,
-                            Request.class, databaseReference) {
+                            HomeViewHolderUser.class, databaseReference) {
                         @Override
                         protected void populateViewHolder(HomeViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
                             //edit attributes
-                            viewHolder.tvUsername.setText(model.getUsername());
-                            viewHolder.tvPost.setText(model.getPost());
+                            viewHolder.tvTitle.setText(model.getTitle());
+                            viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
 
                             String uid = getRef(position).getKey();
                             viewHolder.itemView.setTag(uid);
@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity {
                             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent i = new Intent(rootView.getContext(), ViewPostActivity.class);
+                                    Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
                                     String uid = v.getTag().toString();
                                     i.putExtra("uid", uid);
                                     startActivity(i);
@@ -248,12 +248,45 @@ public class HomeActivity extends AppCompatActivity {
                     };
 
                     rvRequests.setAdapter(firebaseRecyclerAdapter);
-                    rvRequests.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-
                     rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                     break;
                 case 2:
                     /* TODO */
+                    rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_history);
+                    FirebaseRecyclerAdapter<Request, HistoryViewHolderUser> firebaseRecyclerAdapter2
+                            = new FirebaseRecyclerAdapter<Request, HistoryViewHolderUser>(Request.class, R.layout.user_history_view,
+                            HistoryViewHolderUser.class, databaseReference) {
+                        @Override
+                        protected void populateViewHolder(HistoryViewHolderUser viewHolder, Request model, int position) {
+                            // onBindViewHolder >> set content to views
+                            //edit attributes
+                            viewHolder.tvTitle.setText(model.getTitle());
+                            viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
+                            viewHolder.tvWorkerName.setText(model.getWorker().getUsername());
+                            viewHolder.ivStar1.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar2.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar3.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar4.setImageResource(R.drawable.ic_rate_star_button);
+                            viewHolder.ivStar5.setImageResource(R.drawable.ic_rate_star_button);
+
+                            String uid = getRef(position).getKey();
+                            viewHolder.itemView.setTag(uid);
+
+
+                            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent i = new Intent(rootView.getContext(), HomeViewHolderUser.class);
+                                    String uid = v.getTag().toString();
+                                    i.putExtra("uid", uid);
+                                    startActivity(i);
+                                }
+                            });
+                        }
+                    };
+
+                    rvRequests.setAdapter(firebaseRecyclerAdapter2);
+                    rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                     break;
             }
         }
