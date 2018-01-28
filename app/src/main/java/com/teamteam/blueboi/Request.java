@@ -88,7 +88,8 @@ public class Request {
         this.worker = worker;
     }
 
-    public String getStatus() {
-    	return this.status;
-    }
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
+
 }

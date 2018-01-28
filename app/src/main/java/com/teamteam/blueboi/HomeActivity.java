@@ -279,7 +279,6 @@ public class HomeActivity extends AppCompatActivity {
                                 String uid = getRef(position).getKey();
                                 viewHolder.itemView.setTag(uid);
 
-
                                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

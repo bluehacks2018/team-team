@@ -24,5 +24,7 @@ public class RequestsViewHolderWorker extends RecyclerView.ViewHolder {
         tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
         tvDatetime = (TextView) itemView.findViewById(R.id.tv_datetime);
         tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
+        btnAccept = itemView.findViewById(R.id.btn_accept);
+        btnReject = itemView.findViewById(R.id.btn_decline);
     }
 }
