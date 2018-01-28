@@ -234,13 +234,13 @@ public class HomeActivityWorker extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_home);
                     FirebaseRecyclerAdapter<Request, HomeViewHolderWorker> firebaseRecyclerAdapter
                             = new FirebaseRecyclerAdapter<Request, HomeViewHolderWorker>(Request.class, R.layout.worker_home_view,
-                            HomeViewHolderWorker.class, databaseReference) {
+                            HomeViewHolderWorker.class, databaseReference.orderByChild("status").equalTo("accepted")) {
                         @Override
                         protected void populateViewHolder(HomeViewHolderWorker viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
                             //edit attributes
 
-
+                            if (model.getStatus().equalsIgnoreCase("accepted")) {
                                 viewHolder.tvTitle.setText(model.getTitle());
                                 viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
                                 viewHolder.tvLocation.setText(model.getDescription());
@@ -259,9 +259,10 @@ public class HomeActivityWorker extends AppCompatActivity {
                                 });
                             }
 
+                        }
+
 
                     };
-
                     rvRequests.setAdapter(firebaseRecyclerAdapter);
                     rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
                     break;
@@ -270,7 +271,7 @@ public class HomeActivityWorker extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_requests);
                     FirebaseRecyclerAdapter<Request, RequestsViewHolderWorker> firebaseRecyclerAdapter2
                             = new FirebaseRecyclerAdapter<Request, RequestsViewHolderWorker>(Request.class, R.layout.worker_requests_view,
-                            RequestsViewHolderWorker.class, databaseReference) {
+                            RequestsViewHolderWorker.class, databaseReference.orderByChild("status").equalTo("pending")) {
 
                         @Override
                         protected void populateViewHolder(RequestsViewHolderWorker viewHolder, Request model, int position) {
@@ -317,7 +318,7 @@ public class HomeActivityWorker extends AppCompatActivity {
                     rvRequests = (RecyclerView) rootView.findViewById(R.id.rv_history);
                     FirebaseRecyclerAdapter<Request, HistoryViewHolderWorker> firebaseRecyclerAdapter3
                             = new FirebaseRecyclerAdapter<Request, HistoryViewHolderWorker>(Request.class, R.layout.worker_history_view,
-                            HistoryViewHolderWorker.class, databaseReference) {
+                            HistoryViewHolderWorker.class, databaseReference.orderByChild("status").equalTo("finished")) {
 
                         @Override
                         protected void populateViewHolder(HistoryViewHolderWorker viewHolder, Request model, int position) {
