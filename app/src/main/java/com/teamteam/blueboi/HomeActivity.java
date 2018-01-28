@@ -230,23 +230,27 @@ public class HomeActivity extends AppCompatActivity {
                         protected void populateViewHolder(HomeViewHolderUser viewHolder, Request model, int position) {
                             // onBindViewHolder >> set content to views
                             //edit attributes
-                            viewHolder.tvTitle.setText(model.getTitle());
-                            viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
 
-                            String uid = getRef(position).getKey();
-                            viewHolder.itemView.setTag(uid);
+                            if (model.getStatus().equalsIgnoreCase("pending") || model.getStatus().equalsIgnoreCase("accepted")) {
+                                viewHolder.tvTitle.setText(model.getTitle());
+                                viewHolder.tvDatetime.setText(model.getStartDate() + " - " + model.getEndDate());
 
-                            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(rootView.getContext(), RequestInfoActivity.class);
-                                    String uid = v.getTag().toString();
-                                    i.putExtra("uid", uid);
-                                    startActivity(i);
-                                }
-                            });
+                                String uid = getRef(position).getKey();
+                                viewHolder.itemView.setTag(uid);
+
+                                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent i = new Intent(rootView.getContext(), RequestInfoActivity.class);
+                                        String uid = v.getTag().toString();
+                                        i.putExtra("uid", uid);
+                                        startActivity(i);
+                                    }
+                                });
+                            }
                         }
                     };
+
 
                     rvRequests.setAdapter(firebaseRecyclerAdapter);
                     rvRequests.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
